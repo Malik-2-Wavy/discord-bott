@@ -1,12 +1,18 @@
 require('dotenv').config();
-const { Client, Intents, MessageEmbed } = require('discord.js');
+const { Client, GatewayIntentBits, MessageEmbed } = require('discord.js');
 const axios = require('axios');
 
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const TRACKER_API_KEY = process.env.TRACKER_API_KEY;
 const TRACKER_ENDPOINT = 'https://public-api.tracker.gg/v2/fortnite/standard/profile';
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
 
 client.once('ready', () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
